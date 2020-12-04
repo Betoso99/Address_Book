@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Phonebook.Views.AddContactPage">
+    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Priority="1" Command="{Binding AddCommand}"/>
+        <ToolbarItem Text="Scan QR" Priority="0" Command="{Binding ScanCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="100"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HeightRequest" Value="20"/>
+            </Style>
+            <Style x:Key="FrameEntryStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="100"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Frame BackgroundColor="LightGray" CornerRadius="20" Padding="10">
+                    <StackLayout Orientation="Horizontal" Padding="0">
+                        <Label Text="Save to" TextColor="Black" VerticalOptions="Center"/>
+                        <Frame  BackgroundColor="White" HeightRequest="100" WidthRequest="250"
+                                CornerRadius="100" Padding="0"
+                                HorizontalOptions="Center" VerticalOptions="Center">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame CornerRadius="20" Padding="0" IsClippedToBounds="True" Margin="5,5,5,5">
+                                    <Image Source="Mine.jpg"/>
+                                </Frame>
+                                <Label Text="albertoosorio@gmail.com" TextColor="Black" Margin="0,10"/>
+                                <Image Source="down.png"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                
+                <Frame Grid.Row="1"
+                       Style="{StaticResource FrameStyle}" Margin="0,20,0,0"
+                       HeightRequest="100" WidthRequest="100">
+                    <ImageButton x:Name="MainImage" Source="{Binding Source}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" Command="{Binding PhotoCommand}"/>
+                </Frame>
+
+                <Grid Grid.Row="2" Margin="10,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="PersonIcon.png" Grid.Row="1" Grid.Column="0"/>
+                    <Frame Grid.Row="1" Grid.Column="1" BorderColor="Black"
+                       Style="{StaticResource FrameEntryStyle}">
+                        <Entry x:Name="Name"
+                           Placeholder="Name" Text="{Binding NewContact.Name}"/>
+                    </Frame>
+                    <Frame Grid.Row="2" Grid.Column="1" BorderColor="Black"
+                       Style="{StaticResource FrameEntryStyle}">
+                        <Entry x:Name="Lastname" 
+                           Placeholder="Lastname" Text="{Binding NewContact.Last}"/>
+                    </Frame>
+                    
+                    <Image Source="Company.png" Grid.Row="3" Grid.Column="0"/>
+                    <Frame Grid.Row="3" Grid.Column="1" BorderColor="Black"
+                       Style="{StaticResource FrameEntryStyle}">
+                        <Entry x:Name="Company" 
+                           Placeholder="Company" Text="{Binding NewContact.Company}"/>
+                    </Frame>
+                    
+                    <Image Source="Phone.png" Grid.Row="4" Grid.Column="0"/>
+                    <Frame Grid.Row="4" Grid.Column="1" BorderColor="Black"
+                       Style="{StaticResource FrameEntryStyle}">
+                        <Entry x:Name="Phone" 
+                           Placeholder="Phone" Text="{Binding NewContact.Phone}"/>
+                    </Frame>
+
+                    <Frame Grid.Row="5" Grid.Column="1" Margin="0,0,100,0"
+                       Style="{StaticResource FrameEntryStyle}" BorderColor="Black">
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="Mobile" WidthRequest="150" 
+                                   Placeholder="Mobile" Text="{Binding NewContact.Mobile}"/>
+                            <Image Source="down.png"/>
+                        </StackLayout>
+                    </Frame>
+                    
+                    <Image Source="Email.png" Grid.Row="6" Grid.Column="0"/>
+                    <Frame Grid.Row="6" Grid.Column="1" BorderColor="Black"
+                       Style="{StaticResource FrameEntryStyle}">
+                        <Entry x:Name="Email" 
+                           Placeholder="Email" Text="{Binding NewContact.Email}"/>
+                    </Frame>
+
+                    <Frame Grid.Row="7" Grid.Column="1" Margin="0,0,100,0"
+                       Style="{StaticResource FrameEntryStyle}" BorderColor="Black">
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="Home" WidthRequest="150"
+                                   Placeholder="Home" Text="{Binding NewContact.Home}"/>
+                            <Image Source="down.png"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Button Text="More fields" Grid.Row="8" Grid.Column="1" 
+                            HorizontalOptions="StartAndExpand" TextColor="Blue" 
+                            BackgroundColor="Transparent"/>
+
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

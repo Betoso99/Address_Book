@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Phonebook.Views.ContacsPage"
+             Title="Contacts"
+             x:Name="MyContactList">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="GridStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+            </Style>
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="CornerRadius" Value="200"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Style="{StaticResource GridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Frame BackgroundColor="White" Grid.Row="0" CornerRadius="20" HeightRequest="50" WidthRequest="50" Padding="0">
+                <StackLayout Orientation="Horizontal" Padding="0">
+                    <SearchBar Placeholder="SEARCH" HorizontalOptions="Start"
+                      TextChanged="SearchBar_TextChanged" WidthRequest="260" Margin="0,20,0,20"/>
+                    <Frame Style="{StaticResource FrameStyle}" Margin="10,10,10,10">
+                        <Image Source="Mine.jpg"/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+            <ListView x:Name="ContactList" ItemsSource="{Binding ContactsList}" SelectedItem="{Binding Selected, Mode=TwoWay}" Grid.Row="1" Margin="10,0,10,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Edit"
+                                    IconImageSource="icon.png"
+                                    Command="{Binding Source={x:Reference MyContactList}, Path=BindingContext.EditCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IsDestructive="True"/>
+                                <MenuItem Text="Delete"
+                                    Command="{Binding Source={x:Reference MyContactList}, Path=BindingContext.DeleteCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IsDestructive="True"/>
+                            </ViewCell.ContextActions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Style="{StaticResource FrameStyle}" Margin="5,5,5,5">
+                                    <Image Source="Person.png" Grid.Column="0" />
+                                </Frame>
+                                
+
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                                        <Label Text="{Binding Name}" />
+                                        <Label Text="{Binding Last}" />
+                                    </StackLayout>
+                                    <Label Text="{Binding Phone}" Grid.Column="0" Grid.Row="1"/>
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Frame Style="{StaticResource FrameStyle}" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" 
+                   IsClippedToBounds="True" Padding="0" BackgroundColor="SteelBlue" HeightRequest="80" WidthRequest="80"
+                   Margin="0,0,10,10">
+                <ImageButton Source="Add.png" Command="{Binding AddNavigationCommand}" BackgroundColor="Transparent"/>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
